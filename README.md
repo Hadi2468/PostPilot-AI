@@ -2,7 +2,7 @@
 
 ### A self-critiquing, human-in-the-loop LinkedIn post agent built on LangGraph
 
-[![CI](https://github.com/hadi2468/PostPilot-AI/actions/workflows/ci.yml/badge.svg)](https://github.com/hadi2468/PostPilot-AI/actions/workflows/ci.yml)
+[![CI](https://github.com/Hadi2468/PostPilot-AI/actions/workflows/ci.yml/badge.svg)](https://github.com/Hadi2468/PostPilot-AI/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 ![LangGraph](https://img.shields.io/badge/LangGraph-1.x-purple)
 ![License](https://img.shields.io/badge/license-MIT-green)
@@ -60,7 +60,7 @@ See **[DESIGN.md](DESIGN.md)** for state design, routing logic, trade-offs, and 
 ## 🚀 Quickstart
 
 ```bash
-git clone https://github.com/hadi2468/PostPilot-AI.git
+git clone https://github.com/Hadi2468/PostPilot-AI.git
 cd PostPilot-AI
 python -m venv .venv && source .venv/bin/activate    # Windows: .venv\Scripts\activate
 pip install -e ".[api,dashboard,dev]"
