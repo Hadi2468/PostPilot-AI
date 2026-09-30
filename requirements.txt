@@ -1,0 +1,15 @@
+# Runtime + API + dashboard dependencies (mirrors pyproject.toml).
+# Preferred install: pip install -e ".[api,dashboard,dev]"
+langgraph>=1.0
+langchain-core>=1.0
+langchain-openai>=1.0
+tavily-python>=0.5
+pydantic>=2.7
+pydantic-settings>=2.3
+python-dotenv>=1.0
+fastapi>=0.115
+uvicorn[standard]>=0.29
+streamlit>=1.50
+requests>=2.31
+altair>=5
+pandas>=2

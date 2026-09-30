@@ -1,0 +1,93 @@
+{
+  "meeting_summary": {
+    "title": "AI Platform Guild: Taking LLM Agents from Prototype to Production",
+    "note": "Fictional sample data for demonstration purposes.",
+    "participants": ["Maya (Staff ML Engineer)", "Daniel (Data Platform Lead)", "Sofia (Product Manager)"],
+    "sections": [
+      {
+        "section": "Why the prototype stalled",
+        "summary": "The support-ticket triage agent worked in demos but was unreliable on real traffic, so the team paused the rollout.",
+        "topics": [
+          {
+            "title": "Demo quality versus production quality",
+            "timestamp": "02:10",
+            "details": [
+              "Maya explained that the agent was tested on about 40 hand-picked tickets, which hid failure modes seen on real traffic.",
+              "Long, multi-issue tickets caused the agent to answer only the first question.",
+              "Sofia noted that support leads lost trust after a handful of confidently wrong answers."
+            ]
+          }
+        ]
+      },
+      {
+        "section": "Evaluation before features",
+        "summary": "The team agreed to build an evaluation harness before adding any new agent capabilities.",
+        "topics": [
+          {
+            "title": "Building a golden dataset",
+            "timestamp": "08:45",
+            "details": [
+              "Daniel proposed sampling 300 anonymised historical tickets, stratified by category and length.",
+              "Each ticket gets a reference answer reviewed by a senior support agent.",
+              "The harness will run on every prompt or model change, like unit tests in CI."
+            ]
+          },
+          {
+            "title": "LLM-as-judge with guardrails",
+            "timestamp": "13:20",
+            "details": [
+              "Maya suggested an LLM judge with a fixed rubric, calibrated against human ratings on a subset.",
+              "Scores should be computed from rubric items in code rather than asking the model for a single overall number.",
+              "A faithfulness check will flag answers that cite policies not present in the knowledge base."
+            ]
+          }
+        ]
+      },
+      {
+        "section": "Observability and cost",
+        "summary": "Tracing every agent step turned debugging from guesswork into a routine task.",
+        "topics": [
+          {
+            "title": "Tracing agent steps",
+            "timestamp": "19:05",
+            "details": [
+              "Daniel showed traces revealing that most latency came from a retrieval step that was called twice per request.",
+              "Removing the duplicate call and caching embeddings cut p95 latency from about 9 seconds to about 4 seconds.",
+              "Every trace is tagged with the prompt version so regressions can be tied to a specific change."
+            ]
+          }
+        ]
+      },
+      {
+        "section": "Human in the loop",
+        "summary": "The relaunch will keep a human approval step for low-confidence answers.",
+        "topics": [
+          {
+            "title": "Confidence-based review",
+            "timestamp": "24:30",
+            "details": [
+              "Answers below the judge's confidence threshold are routed to a support agent for approval or editing.",
+              "Reviewer edits are logged and fed back into the golden dataset.",
+              "Sofia will track the share of answers approved without edits as the main adoption metric."
+            ]
+          }
+        ]
+      },
+      {
+        "section": "Next steps",
+        "summary": "The team set a two-week plan to relaunch the agent to a pilot group.",
+        "topics": [
+          {
+            "title": "Action items",
+            "timestamp": "29:00",
+            "details": [
+              "Daniel builds the golden dataset and CI evaluation job.",
+              "Maya implements the rubric-based judge and faithfulness check.",
+              "Sofia recruits five support leads for the pilot and defines success criteria."
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
