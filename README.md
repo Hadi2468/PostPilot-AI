@@ -13,6 +13,8 @@ scores the draft against a rubric, the agent researches the topic on the web, an
 writer revises until the post passes a quality gate. Then a **human approves, edits,
 or sends it back** before anything is final.
 
+![PostPilot AI dashboard: rubric scores, score per revision round, and the draft awaiting human review](assets/dashboard.png)
+
 ---
 
 ## ✨ Highlights
@@ -140,6 +142,20 @@ exactly what the human *revise* step is for.
 > The key takeaway? Building AI solutions is about more than just the technology itself. It's
 > about establishing a strong framework of evaluation, observability, and human oversight.
 </details>
+
+---
+
+## 🔭 Observability
+
+Every run is traced end to end in LangSmith: each graph node, each LLM call with its
+structured output, the routing decisions, and the pause at `human_review`. Traces are tagged
+`postpilot` + model and carry the `thread_id`, so a dashboard or API run can be matched to its
+trace.
+
+A full run (extract, draft, 4 evaluations, 3 revisions, web search) on `gpt-4o-mini`:
+**~30 s, ~13.8K tokens, ≈ $0.003**.
+
+![LangSmith trace of a PostPilot run](assets/langsmith.png)
 
 ---
 
