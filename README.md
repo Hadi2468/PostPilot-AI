@@ -235,6 +235,6 @@ MIT
 ## 🧑🏻‍💻 Author
 <pre>
 <b> Hadi Hosseini </b>    
-AI/ML Engineer | Data Engineer | Biomedical Data Scientist  
-➡️ www.linkedin.com/in/hadi468
+ AI/ML Engineer | Data Engineer | Biomedical Data Scientist  
+ www.linkedin.com/in/hadi468
 </pre>
