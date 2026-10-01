@@ -3,9 +3,9 @@
 ### A self-critiquing, human-in-the-loop LinkedIn post agent built on LangGraph
 
 [![CI](https://github.com/Hadi2468/PostPilot-AI/actions/workflows/ci.yml/badge.svg)](https://github.com/Hadi2468/PostPilot-AI/actions/workflows/ci.yml)
-![Python](https://img.shields.io/badge/python-3.11%2B-blue)
-![LangGraph](https://img.shields.io/badge/LangGraph-1.x-purple)
-![License](https://img.shields.io/badge/license-MIT-green)
+[![Python](https://img.shields.io/badge/python-3.11%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![LangGraph](https://img.shields.io/badge/LangGraph-1.x-1C3C3C?logo=langchain&logoColor=white)](https://github.com/langchain-ai/langgraph)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 PostPilot AI turns a structured meeting summary into a publish-ready LinkedIn post.
 Instead of a single prompt, it runs a **Reflexion loop**: a writer drafts, a critic
@@ -14,6 +14,8 @@ writer revises until the post passes a quality gate. Then a **human approves, ed
 or sends it back** before anything is final.
 
 ![PostPilot AI dashboard: rubric scores, score per revision round, and the draft awaiting human review](assets/dashboard.png)
+![PostPilot AI dashboard: rubric scores, score per revision round, and the draft awaiting human review](assets/dashboard.png)
+*The PostPilot AI dashboard*
 
 ---
 
@@ -21,15 +23,15 @@ or sends it back** before anything is final.
 
 | Capability | How |
 |---|---|
-| **Reflexion loop** | `generate → evaluate → research → improve → evaluate`, bounded by an iteration budget |
-| **Deterministic quality gate** | LLM scores 5 rubric items; the overall score is computed **in code** (weighted mean) and gated on faithfulness and LinkedIn's 3,000-char limit |
-| **Hallucination guard** | The critic scores *faithfulness* against the source insights; web research may sharpen framing but not add facts |
-| **Best-of-N tracking** | A revision can make the post worse; the agent always returns the best-scoring draft, not the last one |
+| **Reflexion&nbsp;loop** | `generate → evaluate → research → improve → evaluate`, bounded by an iteration budget |
+| **Deterministic&nbsp;quality&nbsp;gate** | LLM scores 5 rubric items; the overall score is computed **in code** (weighted mean) and gated on faithfulness and LinkedIn's 3,000-char limit |
+| **Hallucination&nbsp;guard** | The critic scores *faithfulness* against the source insights; web research may sharpen framing but not add facts |
+| **Best-of-N&nbsp;tracking** | A revision can make the post worse; the agent always returns the best-scoring draft, not the last one |
 | **Human-in-the-loop** | LangGraph `interrupt()` + checkpointer pauses the run; resume with *approve / edit / revise / reject* |
-| **Graceful degradation** | Web search runs once and is cached; if it fails, the agent continues without it |
+| **Graceful&nbsp;degradation** | Web search runs once and is cached; if it fails, the agent continues without it |
 | **Observability** | LangSmith tracing with run names, tags, and metadata (model, thresholds, thread id) |
-| **Three interfaces, one service** | CLI, FastAPI (bearer-token auth), and a Streamlit dashboard share a single service layer |
-| **Tested offline** | 43 pytest tests with injected fake LLMs: no API keys, no network, no cost; CI on every push |
+| **Three&nbsp;interfaces,&nbsp;one&nbsp;service** | CLI, FastAPI (bearer-token auth), and a Streamlit dashboard share a single service layer |
+| **Tested&nbsp;offline** | 43 pytest tests with injected fake LLMs: no API keys, no network, no cost; CI on every push |
 
 ---
 
@@ -156,14 +158,16 @@ A full run (extract, draft, 4 evaluations, 3 revisions, web search) on `gpt-4o-m
 **~30 s, ~13.8K tokens, ≈ $0.003**.
 
 ![LangSmith trace of a PostPilot run](assets/langsmith.png)
+*The PostPilot AI trace with LangSmith*
 
 ---
 
 ## 🧪 Testing
 
 ```bash
-pytest          # 43 tests, ~1s, fully offline
 ruff check .
+
+pytest          # 43 tests, ~1s, fully offline
 ```
 
 LLMs and search are **dependency-injected**, so tests swap in scripted fakes and assert on
@@ -174,8 +178,8 @@ gate, every human-review path, and the API contract (including auth, 404, 409, 4
 
 ## 🗂️ Project structure
 
-```
-PostPilot-AI/
+<pre>
+<b>PostPilot-AI/</b>
 ├── src/postpilot/
 │   ├── config.py          # pydantic-settings; POSTPILOT_* env vars
 │   ├── schemas.py         # structured LLM outputs + ReviewDecision contract
@@ -189,13 +193,13 @@ PostPilot-AI/
 │   ├── observability.py   # LangSmith run config
 │   ├── service.py         # run lifecycle: start / get / resume
 │   ├── api.py             # FastAPI app
-│   └── cli.py             # `postpilot` command
+│   └── cli.py             # <code>postpilot</code> command
 ├── dashboard/app.py       # Streamlit UI (API client)
 ├── tests/                 # offline pytest suite
 ├── data/sample_meeting.json
 ├── Dockerfile · docker-compose.yml
 └── .github/workflows/ci.yml
-```
+</pre>
 
 ---
 
@@ -206,22 +210,30 @@ PostPilot-AI/
 | `OPENAI_API_KEY` | — | Required |
 | `TAVILY_API_KEY` | — | Required for web research (agent degrades gracefully without results) |
 | `LANGSMITH_TRACING` / `LANGSMITH_API_KEY` | `false` | Optional tracing |
-| `POSTPILOT_OPENAI_MODEL` | `gpt-4o-mini` | Model for writer and critic |
+| `POSTPILOT_OPENAI_MODEL` | <code>gpt&#8209;4o&#8209;mini</code>` | Model for writer and critic |
 | `POSTPILOT_SCORE_THRESHOLD` | `8.5` | Overall score needed to stop revising |
 | `POSTPILOT_MIN_FAITHFULNESS` | `7.0` | Hard floor on faithfulness |
 | `POSTPILOT_MAX_ITERATIONS` | `3` | Revision budget |
 | `POSTPILOT_HUMAN_REVIEW` | `true` | Pause for human approval |
-| `POSTPILOT_API_TOKEN` | *(empty)* | Enables bearer auth on the API |
+| `POSTPILOT_API_TOKEN` | *(empty)* | Set to enable bearer auth on the API; empty = no auth |
 
 ---
 
 ## 🛣️ Roadmap
 
-- Durable checkpointer (Postgres) for multi-worker deployments
-- Offline eval set + LangSmith experiments to calibrate the critic against human ratings
-- Plateau detection: stop early when revisions stop improving the score
-- Separate critic model family to reduce self-preference bias
+➡️ Durable checkpointer (Postgres) for multi-worker deployments
+➡️ Offline eval set + LangSmith experiments to calibrate the critic against human ratings
+➡️ Plateau detection: stop early when revisions stop improving the score
+➡️ Separate critic model family to reduce self-preference bias
+
+---
 
 ## License
 
 MIT
+
+---
+## 🧑🏻‍💻 Author
+### Hadi Hosseini    
+AI/ML Engineer | Data Engineer | Biomedical Data Scientist  
+➡️ www.linkedin.com/in/hadi468
