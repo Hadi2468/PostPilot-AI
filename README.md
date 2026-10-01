@@ -14,7 +14,6 @@ writer revises until the post passes a quality gate. Then a **human approves, ed
 or sends it back** before anything is final.
 
 ![PostPilot AI dashboard: rubric scores, score per revision round, and the draft awaiting human review](assets/dashboard.png)
-![PostPilot AI dashboard: rubric scores, score per revision round, and the draft awaiting human review](assets/dashboard.png)
 *The PostPilot AI dashboard*
 
 ---
@@ -193,7 +192,7 @@ gate, every human-review path, and the API contract (including auth, 404, 409, 4
 │   ├── observability.py   # LangSmith run config
 │   ├── service.py         # run lifecycle: start / get / resume
 │   ├── api.py             # FastAPI app
-│   └── cli.py             # <code>postpilot</code> command
+│   └── cli.py             # <b>postpilot</b> command
 ├── dashboard/app.py       # Streamlit UI (API client)
 ├── tests/                 # offline pytest suite
 ├── data/sample_meeting.json
@@ -221,10 +220,10 @@ gate, every human-review path, and the API contract (including auth, 404, 409, 4
 
 ## 🛣️ Roadmap
 
-➡️ Durable checkpointer (Postgres) for multi-worker deployments
-➡️ Offline eval set + LangSmith experiments to calibrate the critic against human ratings
-➡️ Plateau detection: stop early when revisions stop improving the score
-➡️ Separate critic model family to reduce self-preference bias
+➡️ Durable checkpointer (Postgres) for multi-worker deployments  
+➡️ Offline eval set + LangSmith experiments to calibrate the critic against human ratings  
+➡️ Plateau detection: stop early when revisions stop improving the score  
+➡️ Separate critic model family to reduce self-preference bias  
 
 ---
 
@@ -234,6 +233,8 @@ MIT
 
 ---
 ## 🧑🏻‍💻 Author
-### Hadi Hosseini    
+<pre>
+<b> Hadi Hosseini </b>    
 AI/ML Engineer | Data Engineer | Biomedical Data Scientist  
 ➡️ www.linkedin.com/in/hadi468
+</pre>
